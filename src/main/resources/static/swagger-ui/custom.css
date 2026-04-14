@@ -1,0 +1,153 @@
+/* ============================================
+   PANDOLLAR — Custom Swagger UI Theme
+   Orange (#F5A623) + Dark header
+   ============================================ */
+
+/* ---------- Top bar ---------- */
+.swagger-ui .topbar {
+    background-color: #1a1a2e;
+    padding: 12px 0;
+}
+
+.swagger-ui .topbar-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Hide default Swagger logo */
+.swagger-ui .topbar-wrapper img[alt="Swagger UI"],
+.swagger-ui .topbar-wrapper .link {
+    display: none;
+}
+
+/* PANDOLLAR text branding */
+.swagger-ui .topbar-wrapper::before {
+    content: "PANDOLLAR";
+    font-size: 24px;
+    font-weight: 700;
+    color: #F5A623;
+    letter-spacing: 3px;
+    padding-left: 20px;
+}
+
+.swagger-ui .topbar-wrapper::after {
+    content: "Lead Management API";
+    font-size: 14px;
+    font-weight: 400;
+    color: #cccccc;
+    padding-left: 16px;
+    align-self: center;
+}
+
+/* ---------- Info section ---------- */
+.swagger-ui .info .title {
+    color: #1a1a2e;
+}
+
+.swagger-ui .info a {
+    color: #F5A623;
+}
+
+/* ---------- Tag / Group headers ---------- */
+.swagger-ui .opblock-tag {
+    border-bottom: 2px solid #F5A623;
+    font-size: 18px;
+}
+
+.swagger-ui .opblock-tag:hover {
+    background: rgba(245, 166, 35, 0.05);
+}
+
+/* ---------- HTTP method badges ---------- */
+
+/* POST */
+.swagger-ui .opblock.opblock-post {
+    border-color: #F5A623;
+    background: rgba(245, 166, 35, 0.05);
+}
+
+.swagger-ui .opblock.opblock-post .opblock-summary-method {
+    background: #F5A623;
+}
+
+/* GET */
+.swagger-ui .opblock.opblock-get {
+    border-color: #2d6a4f;
+    background: rgba(45, 106, 79, 0.05);
+}
+
+.swagger-ui .opblock.opblock-get .opblock-summary-method {
+    background: #2d6a4f;
+}
+
+/* PUT */
+.swagger-ui .opblock.opblock-put {
+    border-color: #1a6fb5;
+    background: rgba(26, 111, 181, 0.05);
+}
+
+.swagger-ui .opblock.opblock-put .opblock-summary-method {
+    background: #1a6fb5;
+}
+
+/* DELETE */
+.swagger-ui .opblock.opblock-delete {
+    border-color: #c0392b;
+    background: rgba(192, 57, 43, 0.05);
+}
+
+.swagger-ui .opblock.opblock-delete .opblock-summary-method {
+    background: #c0392b;
+}
+
+/* ---------- Buttons ---------- */
+.swagger-ui .btn.authorize {
+    color: #F5A623;
+    border-color: #F5A623;
+}
+
+.swagger-ui .btn.authorize:hover {
+    background: rgba(245, 166, 35, 0.1);
+}
+
+.swagger-ui .btn.execute {
+    background-color: #F5A623;
+    border-color: #F5A623;
+    color: #1a1a2e;
+}
+
+.swagger-ui .btn.execute:hover {
+    background-color: #e09520;
+}
+
+/* Try it out button */
+.swagger-ui .try-out__btn {
+    color: #F5A623;
+    border-color: #F5A623;
+}
+
+.swagger-ui .try-out__btn:hover {
+    background: rgba(245, 166, 35, 0.1);
+}
+
+/* ---------- Response codes ---------- */
+.swagger-ui .responses-inner h4,
+.swagger-ui .response-col_status {
+    font-weight: 600;
+}
+
+/* ---------- Models section ---------- */
+.swagger-ui section.models {
+    border-color: #F5A623;
+}
+
+.swagger-ui section.models h4 {
+    color: #1a1a2e;
+}
+
+/* ---------- Scrollbar (webkit) ---------- */
+.swagger-ui ::-webkit-scrollbar-thumb {
+    background-color: #F5A623;
+    border-radius: 4px;
+}
