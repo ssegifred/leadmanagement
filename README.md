@@ -10,6 +10,7 @@ A simple Lead Management REST API built with Java and Spring Boot, simulating a 
 - **PostgreSQL** (runtime) / **H2** (tests)
 - **Lombok**
 - **Jakarta Bean Validation**
+- **Springdoc OpenAPI / Swagger UI**
 
 ## Prerequisites
 
@@ -23,18 +24,33 @@ A simple Lead Management REST API built with Java and Spring Boot, simulating a 
 CREATE DATABASE leadmanagement;
 ```
 
-## How to Run
+## Setup
 
-```bash
-# Clone the repository
-git clone <repository-url>
-cd leadmanagement
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd leadmanagement
+   ```
 
-# Run the application
-./mvnw spring-boot:run
-```
+2. Create your configuration file from the example:
+   ```bash
+   cp src/main/resources/application.properties.example src/main/resources/application.properties
+   ```
+
+3. Edit `src/main/resources/application.properties` and set your PostgreSQL credentials:
+   ```properties
+   spring.datasource.username=your_username
+   spring.datasource.password=your_password
+   ```
+
+4. Run the application:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
 
 The API will start on `http://localhost:8080`.
+
+> **Note:** `application.properties` is git-ignored to prevent committing database credentials. Only the `.example` file is tracked.
 
 ## How to Run Tests
 
@@ -43,6 +59,15 @@ The API will start on `http://localhost:8080`.
 ```
 
 Tests use an in-memory H2 database and do not require PostgreSQL.
+
+## API Documentation (Swagger UI)
+
+Once the application is running, visit:
+
+- **Swagger UI:** [http://localhost:8080](http://localhost:8080) (auto-redirects to Swagger)
+- **OpenAPI JSON:** [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
+
+The Swagger UI provides interactive documentation with try-it-out functionality, grouped by feature, with full request/response schemas and error descriptions.
 
 ## API Endpoints
 
@@ -98,7 +123,9 @@ The project follows **clean architecture** with a **package-by-layer** structure
 ```
 com.pandolar.leadmanagement/
 ├── config/                          # Spring @Configuration classes
-│   └── JpaAuditingConfig.java
+│   ├── JpaAuditingConfig.java
+│   ├── OpenApiConfig.java           # Swagger/OpenAPI metadata and tag ordering
+│   └── WebConfig.java               # Root URL redirect to Swagger UI
 │
 ├── constants/                       # Application-wide constants
 │   ├── ApiPaths.java                # Centralized API endpoint paths
@@ -156,15 +183,15 @@ com.pandolar.leadmanagement/
 
 | Layer | Responsibility | Example |
 |-------|---------------|---------|
-| **controller/** | HTTP handling, validation, route mapping | `LeadController` |
+| **controller/** | HTTP handling, validation, route mapping, request logging | `LeadController` |
 | **service/** | Business logic interfaces | `LeadService` (interface) |
-| **service/impl/** | Business logic implementations, transactions, logging | `LeadServiceImpl` |
+| **service/impl/** | Business logic implementations, transactions, audit logging | `LeadServiceImpl` |
 | **repository/** | Data access abstraction via Spring Data JPA | `LeadRepository` |
 | **entity/** | JPA entities, base classes, enums | `Lead`, `BaseEntity`, `LeadStatus` |
 | **dto/** | Pure data carriers — request and response objects | `CreateLeadRequest`, `LeadResponse` |
 | **mapper/** | Entity-to-DTO and DTO-to-Entity conversion | `LeadMapper`, `CustomerMapper` |
 | **exception/** | Domain exceptions + global handler | `GlobalExceptionHandler` |
-| **config/** | Spring configuration | `JpaAuditingConfig` |
+| **config/** | Spring configuration (JPA auditing, OpenAPI, web) | `JpaAuditingConfig`, `OpenApiConfig` |
 | **constants/** | Application-wide constants | `ApiPaths`, `ErrorMessages` |
 | **util/** | Reusable stateless helpers | `StringUtils`, `ErrorResponseBuilder` |
 
@@ -194,3 +221,4 @@ JPA / Hibernate → PostgreSQL
 8. **Constants package** — `ApiPaths` centralizes endpoint paths; `ErrorMessages` centralizes error strings. Avoids hardcoded strings scattered across the codebase.
 9. **Global exception handler** — Consistent error response format across all endpoints using `@RestControllerAdvice` and `ErrorResponseBuilder`.
 10. **JPA Auditing** — Automatic `createdAt` and `updatedAt` timestamps on all entities via `BaseEntity` and `@EnableJpaAuditing`.
+11. **Credentials not committed** — `application.properties` is git-ignored. An `.example` file is provided as a template.
