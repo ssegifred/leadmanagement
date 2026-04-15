@@ -45,7 +45,7 @@ CREATE DATABASE leadmanagement;
 
 4. Run the application:
    ```bash
-   ./mvnw spring-boot:run
+   ./mvnw spring-boot:run or mvnw spring-boot:run
    ```
 
 The API will start on `http://localhost:8080`.
